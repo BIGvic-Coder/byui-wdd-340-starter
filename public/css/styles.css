@@ -40,10 +40,11 @@ footer {
   text-align: center;
   flex: 1 1 150px;
   max-width: 200px;
-  background-color: #f2f2f2;
+  background-color: #eaeaea; /* slightly darker for better contrast */
   padding: 1rem;
   border-radius: 8px;
   transition: transform 0.3s ease;
+  color: #111; /* strong text contrast */
 }
 
 .card:hover {
@@ -93,14 +94,22 @@ button {
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
   background-color: #007bff;
-  color: white;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: 600;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #004a99; /* better contrast */
+}
+
+/* Add keyboard accessibility */
+button:focus,
+a:focus {
+  outline: 2px dashed #003366;
+  outline-offset: 4px;
 }
 
 .hero-content {
@@ -108,6 +117,7 @@ button:hover {
   max-width: 50%;
   padding: 1rem;
 }
+
 nav {
   background-color: #003366;
   padding: 1rem 0;
@@ -133,6 +143,7 @@ nav {
 .nav-links li a:hover {
   color: #ffcc00;
 }
+
 .main-nav {
   display: flex;
   justify-content: space-between;
