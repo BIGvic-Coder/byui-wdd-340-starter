@@ -93,16 +93,15 @@ li {
 button {
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
-  background-color: #007bff;
+  background-color: #0056b3; /* improved contrast */
   color: #ffffff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-weight: 600;
 }
 
 button:hover {
-  background-color: #004a99; /* better contrast */
+  background-color: #003d80;
 }
 
 /* Add keyboard accessibility */
