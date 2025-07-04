@@ -8,6 +8,7 @@
  *************************/
 const express = require("express");
 const env = require("dotenv").config();
+const expressLayouts = require("express-ejs-layouts"); // ADD THIS
 const app = express();
 const static = require("./routes/static");
 
@@ -15,6 +16,8 @@ const static = require("./routes/static");
  * View Engine and Static Folder
  *************************/
 app.set("view engine", "ejs"); // Tell Express to use EJS
+app.set("layout", "./layout"); // Tell EJS where to find the layout
+app.use(expressLayouts); // Use express-ejs-layouts
 app.use(express.static("public")); // Serve static files from /public
 
 /* ***********************
@@ -22,11 +25,6 @@ app.use(express.static("public")); // Serve static files from /public
  *************************/
 // Static routes
 app.use(static);
-
-// Home route (renders the index.ejs page)
-app.get("/", (req, res) => {
-  res.render("index");
-});
 
 /* ***********************
  * Local Server Information
