@@ -1,9 +1,20 @@
 const express = require("express");
-const router = express.Router();
-const invController = require("../controllers/invController");
+const router = new express.Router();
+const invController = require("../controllers/inventoryController");
 
-// Route to handle vehicle detail by inventory ID
-router.get("/detail/:inv_id", invController.buildInventoryDetail);
+// Route to display vehicles by classification
+router.get("/type/:classification", invController.buildByClassification);
 
-// Export the router
+// Route to display single vehicle detail
+router.get("/detail/:inv_id", invController.buildByInventoryId);
+
+// Route to trigger error (Assignment 3 Task 3)
+router.get("/error", (req, res, next) => {
+  try {
+    throw new Error("Intentional error triggered.");
+  } catch (error) {
+    next(error); // Pass error to middleware
+  }
+});
+
 module.exports = router;

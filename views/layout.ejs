@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include("partials/head") %>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %> | CSE Motors</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
   <body>
-    <%- include("partials/header") %> <%- include("partials/nav") %>
+    <header>
+      <h1>CSE Motors</h1>
+      <nav><%- nav %></nav>
+    </header>
 
-    <main>
-      <%- body %>
-      <!-- This is where the child content will be injected -->
-    </main>
+    <%- body %>
 
-    <%- include("partials/footer") %>
+    <footer>
+      <p>&copy; 2025 CSE Motors. All rights reserved.</p>
+      <p><a href="/trigger-error">Trigger Server Error</a></p>
+    </footer>
   </body>
 </html>

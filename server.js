@@ -1,43 +1,53 @@
-/* ******************************************
- * This server.js file is the primary file of the
- * application. It is used to control the project.
- *******************************************/
-
-/* ***********************
- * Require Statements
- *************************/
 const express = require("express");
 const env = require("dotenv").config();
-const expressLayouts = require("express-ejs-layouts"); // ADD THIS
+const expressLayouts = require("express-ejs-layouts");
+const path = require("path");
 const app = express();
+
+// ✅ Serve static files from /public
+app.use(express.static("public"));
+
+// ✅ Set views directory and EJS layout engine
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+app.set("layout", "layout"); // ✅ Uses views/layout.ejs
+app.use(expressLayouts);
+
+// Routes
 const static = require("./routes/static");
-
-/* ***********************
- * View Engine and Static Folder
- *************************/
-app.set("view engine", "ejs"); // Tell Express to use EJS
-app.set("layout", "./layout"); // Tell EJS where to find the layout
-app.use(expressLayouts); // Use express-ejs-layouts
-app.use(express.static("public")); // Serve static files from /public
-
-/* ***********************
- * Routes
- *************************/
-// Static routes
-app.use(static);
-
-/* ***********************
- * Local Server Information
- * Values from .env (environment) file
- *************************/
-const port = process.env.PORT;
-const host = process.env.HOST;
-
-/* ***********************
- * Log statement to confirm server operation
- *************************/
-app.listen(port, () => {
-  console.log(`app listening on ${host}:${port}`);
-});
 const invRoute = require("./routes/inventoryRoute");
+
+// Apply routes
+app.use(static);
 app.use("/inventory", invRoute);
+
+// Test route to verify server is working
+app.get("/", (req, res) => {
+  res.render("home", {
+    title: "Home",
+    nav: "<a href='/inventory'>Inventory</a>",
+  });
+});
+
+// ❗ Intentional 500 error trigger route
+app.get("/trigger-error", (req, res, next) => {
+  next(new Error("Intentional Server Error"));
+});
+
+// ✅ Global error-handling middleware
+app.use((err, req, res, next) => {
+  console.error("🔥 Server Error:", err.stack);
+  res.status(500).render("errors/500", {
+    title: "Server Error",
+    nav: "<a href='/'>Home</a>",
+    message: "Something went wrong on the server. Please try again later.",
+  });
+});
+
+// Server config
+const port = process.env.PORT || 5501;
+const host = process.env.HOST || "localhost";
+
+app.listen(port, () => {
+  console.log(`✅ App listening at http://${host}:${port}`);
+});
