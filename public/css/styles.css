@@ -143,3 +143,56 @@ nav a:hover {
   color: #ffcc00;
   text-decoration: underline;
 }
+.flash {
+  padding: 1rem;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.errors {
+  padding: 1rem;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  list-style: none;
+}
+
+/* Layout containers for spacing */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Footer styling improvement */
+footer {
+  background-color: #f2f2f2;
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.footer-link {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+  color: #003d80;
+}
+
+/* Ensure flash messages aren’t too wide */
+.flash,
+.errors {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}

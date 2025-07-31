@@ -8,15 +8,34 @@
   </head>
   <body>
     <header>
-      <h1>CSE Motors</h1>
-      <nav><%- nav %></nav>
+      <div class="container">
+        <h1>CSE Motors</h1>
+        <nav><%- nav %></nav>
+      </div>
     </header>
 
-    <%- body %>
+    <main class="container">
+      <% if (messages.message) { %>
+      <div class="flash"><%= messages.message %></div>
+      <% } %> <% if (messages.error && messages.error.length > 0) { %>
+      <div class="errors">
+        <% messages.error.forEach(function(err) { %>
+        <p><%= err %></p>
+        <% }) %>
+      </div>
+      <% } %> <%- body %>
+    </main>
 
     <footer>
-      <p>&copy; 2025 CSE Motors. All rights reserved.</p>
-      <p><a href="/trigger-error">Trigger Server Error</a></p>
+      <div class="container">
+        <p>
+          &copy; <%= new Date().getFullYear() %> CSE Motors. All rights
+          reserved.
+        </p>
+        <p>
+          <a href="/trigger-error" class="footer-link">Trigger Server Error</a>
+        </p>
+      </div>
     </footer>
   </body>
 </html>

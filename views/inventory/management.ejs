@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Inventory Management</h1>
+
+      <% if (message) { %>
+      <div class="flash"><%= message %></div>
+      <% } %>
+
+      <ul>
+        <li><a href="/inv/add-classification">➕ Add New Classification</a></li>
+        <li><a href="/inv/add-inventory">🚗 Add New Vehicle</a></li>
+      </ul>
+    </main>
+  </body>
+</html>

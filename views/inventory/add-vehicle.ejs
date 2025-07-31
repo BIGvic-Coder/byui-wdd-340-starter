@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Add New Vehicle</h1>
+
+      <% if (message) { %>
+        <div class="flash"><%= message %></div>
+      <% } %>
+
+      <% if (errors && errors.length > 0) { %>
+        <ul class="errors">
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+      <% } %>
+
+      <form action="/inv/add-inventory" method="post" novalidate>
+        <label for="classification_id">Classification</label><br />
+        <select id="classification_id" name="classification_id" required>
+          <option value="">Choose a Classification</option>
+          <% classifications.forEach(c => { %>
+            <option value="<%= c.classification_id %>" <%= (data.classification_id == c.classification_id) ? "selected" : "" %> >
+              <%= c.classification_name %>
+            </option>
+          <% }) %>
+        </select><br /><br />
+
+        <label for="inv_make">Make</label><br />
+        <input
+          type="text"
+          id="inv_make"
+          name="inv_make"
+          value="<%= data.inv_make || '' %>"
+          required
+        /><br /><br />
+
+        <label for="inv_model">Model</label><br />
+        <input
+          type="text"
+          id="inv_model"
+          name="inv_model"
+          value="<%= data.inv_model || '' %>"
+          required
+        /><br /><br />
+
+        <label for="inv_description">Description</label><br />
+        <textarea
+          id="inv_description"
+          name="inv_description"
+          required
+        ><%= data.inv_description || '' %></textarea><br /><br />
+
+        <label for="inv_image">Image Path</label><br />
+        <input
+          type="text"
+          id="inv_image"
+          name="inv_image"
+          value="<%= data.inv_image || '/images/no-image.png' %>"
+          required
+        /><br /><br />
+
+        <label for="inv_thumbnail">Thumbnail Path</label><br />
+        <input
+          type="text"
+          id="inv_thumbnail"
+          name="inv_thumbnail"
+          value="<%= data.inv_thumbnail || '/images/no-image.png' %>"
+          required
+        /><br /><br />
+
+        <label for="inv_price">Price</label><br />
+        <input
+          type="number"
+          id="inv_price"
+          name="inv_price"
+          step="0.01"
+          value="<%= data.inv_price || '' %>"
+          required
+        /><br /><br />
+
+        <label for="inv_year">Year</label><br />
+        <input
+          type="number"
+          id="inv_year"
+          name="inv_year"
+          value="<%= data.inv_year || '' %>"
+          required
+        /><br /><br />
+
+        <label for="inv_miles">Miles</label><br />
+        <input
+          type="number"
+          id="inv_miles"
+          name="inv_miles"
+          value="<%= data.inv_miles || '' %>"
+          required
+        /><br /><br />
+
+        <label for="inv_color">Color</label><br />
+        <input
+          type="text"
+          id="inv_color"
+          name="inv_color"
+          value="<%= data.inv_color || '' %>"
+          required
+        /><br /><br />
+
+        <button type="submit">Add Vehicle</button>
+      </form>
+    </main>
+  </body>
+</html>
