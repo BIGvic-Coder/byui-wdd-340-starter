@@ -1,67 +1,70 @@
+require("dotenv").config();
+
 const express = require("express");
 const session = require("express-session");
 const flash = require("connect-flash");
-const env = require("dotenv").config();
 const expressLayouts = require("express-ejs-layouts");
 const path = require("path");
+const cookieParser = require("cookie-parser");
+
 const app = express();
 
-// Import dynamic nav function
-const { getNav } = require("./utilities/index");
+// ✅ Parse form data first
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// Serve static files from /public
+// ✅ Cookie parser before JWT decode
+app.use(cookieParser());
+
+// ✅ Decode JWT middleware
+const { decodeJWT } = require("./routes/middleware/authMiddleware");
+app.use(decodeJWT);
+
+// ✅ Serve static files
 app.use(express.static("public"));
 
-// Add body parser for form data
-app.use(express.urlencoded({ extended: true }));
-
-// Setup session middleware
+// ✅ Session middleware
 app.use(
   session({
-    secret: "yourSecretHere", // Replace with a secure secret string
+    secret: process.env.SESSION_SECRET || "devSecret",
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60000 }, // 1 minute
+    cookie: { maxAge: 60000 },
   })
 );
 
-// Setup flash middleware
+// ✅ Flash messages
 app.use(flash());
 
-// Make flash messages & nav available in all views
+// ✅ Navigation & flash locals
+const { getNav } = require("./utilities/index");
 app.use(async (req, res, next) => {
   res.locals.messages = req.flash();
   res.locals.nav = await getNav();
   next();
 });
 
-// Set views directory and EJS layout engine
+// ✅ View engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.set("layout", "layout");
 app.use(expressLayouts);
 
-// Routes
-const static = require("./routes/static");
+// ✅ Routes
+const accountRoutes = require("./routes/accountRoute");
+const staticRoutes = require("./routes/static");
 const invRoute = require("./routes/inventoryRoute");
 
-// Mount routes with /inv prefix to align with your routes & controllers
-app.use(static);
+app.use("/account", accountRoutes);
 app.use("/inv", invRoute);
+app.use("/", staticRoutes);
 
-// Home route
+// ✅ Home route
 app.get("/", (req, res) => {
-  res.render("home", {
-    title: "Home",
-  });
+  res.render("home", { title: "Home" });
 });
 
-// Error trigger route
-app.get("/trigger-error", (req, res, next) => {
-  next(new Error("Intentional Server Error"));
-});
-
-// Global error-handling middleware
+// ✅ Global error handler
 app.use((err, req, res, next) => {
   console.error("🔥 Server Error:", err.stack);
   res.status(500).render("errors/500", {
@@ -70,7 +73,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Server config
+// ✅ Start server
 const port = process.env.PORT || 5501;
 const host = process.env.HOST || "localhost";
 

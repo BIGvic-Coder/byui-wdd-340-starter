@@ -7,21 +7,27 @@
     <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
-    <header>
-      <div class="container">
-        <h1>CSE Motors</h1>
-        <nav><%- nav %></nav>
+    <header class="site-header">
+      <div class="container header-container">
+        <h1 class="site-title">CSE Motors</h1>
+        <%- include('partials/nav') %>
       </div>
     </header>
 
     <main class="container">
       <% if (messages.message) { %>
       <div class="flash"><%= messages.message %></div>
-      <% } %> <% if (messages.error && messages.error.length > 0) { %>
-      <div class="errors">
+      <% } %> <% if (Array.isArray(messages.error) && messages.error.length > 0)
+      { %>
+      <div class="flash-error">
         <% messages.error.forEach(function(err) { %>
         <p><%= err %></p>
         <% }) %>
+      </div>
+      <% } else if (typeof messages.error === "string" &&
+      messages.error.trim().length > 0) { %>
+      <div class="flash-error">
+        <p><%= messages.error %></p>
       </div>
       <% } %> <%- body %>
     </main>

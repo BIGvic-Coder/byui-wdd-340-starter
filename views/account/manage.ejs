@@ -1,0 +1,18 @@
+<div class="welcome-box">
+  <% if (accountData) { %>
+  <h2>Welcome, <%= accountData.account_firstname %>!</h2>
+  <p>Manage your account details below.</p>
+  <p>
+    <a href="/account/update/<%= accountData.account_id %>">
+      🛠️ Update Account Information
+    </a>
+  </p>
+  <% } else { %>
+  <h2>Welcome!</h2>
+  <p>Please log in to access your account.</p>
+  <p>
+    <a href="/account/login">Login</a> |
+    <a href="/account/register">Register</a>
+  </p>
+  <% } %>
+</div>

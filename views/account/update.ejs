@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1><%= title %></h1>
+
+      <!-- Flash messages -->
+      <% if (messages && messages.notice) { %>
+      <div class="flash"><%= messages.notice %></div>
+      <% } %> <% if (messages && messages.error) { %>
+      <div class="flash flash-error"><%= messages.error %></div>
+      <% } %>
+
+      <!-- Form: Update Account Info -->
+      <form action="/account/update-info" method="post" novalidate>
+        <input
+          type="hidden"
+          name="account_id"
+          value="<%= accountData.account_id %>"
+        />
+
+        <label for="firstname">First Name</label>
+        <input
+          type="text"
+          id="firstname"
+          name="firstname"
+          required
+          value="<%= accountData.account_firstname || '' %>"
+          minlength="1"
+        />
+
+        <label for="lastname">Last Name</label>
+        <input
+          type="text"
+          id="lastname"
+          name="lastname"
+          required
+          value="<%= accountData.account_lastname || '' %>"
+          minlength="1"
+        />
+
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          value="<%= accountData.account_email || '' %>"
+        />
+
+        <button type="submit">Update Info</button>
+      </form>
+
+      <hr />
+
+      <!-- Form: Change Password -->
+      <form action="/account/update-password" method="post" novalidate>
+        <input
+          type="hidden"
+          name="account_id"
+          value="<%= accountData.account_id %>"
+        />
+
+        <label for="newPassword">New Password</label>
+        <input
+          type="password"
+          id="newPassword"
+          name="newPassword"
+          minlength="8"
+          placeholder="At least 8 characters"
+          aria-describedby="passwordHelp"
+        />
+        <p id="passwordHelp">
+          Leave blank to keep your current password. Password must be at least 8
+          characters.
+        </p>
+
+        <button type="submit">Change Password</button>
+      </form>
+    </main>
+  </body>
+</html>

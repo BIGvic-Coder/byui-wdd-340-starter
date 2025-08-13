@@ -7,96 +7,104 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  padding: 1rem;
-  background: #fff;
-  color: #000;
-}
-
-header,
-nav,
-main,
-footer {
-  margin-bottom: 1.5rem;
-}
-
-.hero {
-  text-align: center;
-}
-
-.hero img {
-  max-width: 100%;
-  height: auto;
-}
-
-.card-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-  padding: 1rem;
-}
-
-.card {
-  text-align: center;
-  flex: 1 1 150px;
-  max-width: 200px;
-  background-color: #eaeaea; /* slightly darker for better contrast */
-  padding: 1rem;
-  border-radius: 8px;
-  transition: transform 0.3s ease;
-  color: #111; /* strong text contrast */
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-.card img {
-  width: 100%;
-  max-width: 100px;
-  margin-bottom: 0.5rem;
-}
-
-@media screen and (min-width: 768px) {
-  .hero {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .cards {
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
-  }
-}
-
-h1,
-h2 {
-  color: #003366;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  text-align: center;
-}
-
-ul {
-  padding-left: 1.5rem;
+  background-color: #f5f6fa;
+  color: #222;
   line-height: 1.6;
 }
 
-li {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header & nav */
+.site-header {
+  background-color: #003366;
+  color: white;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+}
+
+.site-title {
+  margin: 0 0 0.5rem 0;
+  text-align: center;
+}
+
+.main-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.main-nav a:hover {
+  background-color: #ffcc00;
+  color: #003366;
+}
+
+/* Welcome box */
+.welcome-box {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.welcome-box h2 {
+  margin-top: 0;
+  color: #003366;
+}
+
+.welcome-box a {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #0056b3;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.welcome-box a:hover {
+  background-color: #003d80;
+}
+
+/* Inputs for login/register */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 250px;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0 1rem 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
 }
 
 button {
-  padding: 0.6rem 1.2rem;
+  padding: 0.7rem 1.5rem;
   font-size: 1rem;
   background-color: #0056b3;
-  color: #ffffff;
+  color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -104,45 +112,7 @@ button:hover {
   background-color: #003d80;
 }
 
-button:focus,
-a:focus {
-  outline: 2px dashed #003366;
-  outline-offset: 4px;
-}
-
-.hero-content {
-  text-align: left;
-  max-width: 50%;
-  padding: 1rem;
-}
-
-/* ✅ Fixed and simplified nav styling */
-nav {
-  background-color: #003366;
-  padding: 1rem 0;
-}
-
-nav ul {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-nav a:hover {
-  color: #ffcc00;
-  text-decoration: underline;
-}
+/* Flash messages */
 .flash {
   padding: 1rem;
   background-color: #d4edda;
@@ -153,24 +123,17 @@ nav a:hover {
   text-align: center;
 }
 
-.errors {
+.flash-error {
   padding: 1rem;
   background-color: #f8d7da;
   color: #721c24;
   border: 1px solid #f5c6cb;
   border-radius: 5px;
   margin-bottom: 1rem;
-  list-style: none;
+  text-align: center;
 }
 
-/* Layout containers for spacing */
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* Footer styling improvement */
+/* Footer */
 footer {
   background-color: #f2f2f2;
   padding: 1rem 0;
@@ -185,14 +148,6 @@ footer {
 }
 
 .footer-link:hover {
-  text-decoration: underline;
   color: #003d80;
-}
-
-/* Ensure flash messages aren’t too wide */
-.flash,
-.errors {
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  text-decoration: underline;
 }
