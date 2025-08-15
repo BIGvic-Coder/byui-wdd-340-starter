@@ -82,7 +82,7 @@ async function loginAccount(req, res) {
     );
 
     res.cookie("jwt", token, { httpOnly: true, maxAge: 3600000 });
-    res.redirect("/account/manage");
+    res.redirect("/profile");
   } catch (err) {
     console.error("Login error:", err);
     req.flash("error", "Login failed.");

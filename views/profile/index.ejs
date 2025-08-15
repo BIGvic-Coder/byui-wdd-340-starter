@@ -1,0 +1,41 @@
+<h1>My Profile</h1>
+
+<!-- Success messages -->
+<% if (messages.success && messages.success.length > 0) { %>
+<p style="color: green"><%= messages.success[0] %></p>
+<% } %>
+
+<!-- Error messages -->
+<% if (messages.errors && messages.errors.length > 0) { %>
+<ul style="color: red">
+  <% messages.errors.forEach(err => { %>
+  <li><%= err %></li>
+  <% }) %>
+</ul>
+<% } %>
+
+<form action="/profile/update" method="POST">
+  <label>First Name:</label>
+  <input
+    type="text"
+    name="first_name"
+    value="<%= profile?.first_name || '' %>"
+    required
+    maxlength="50"
+  /><br />
+
+  <label>Last Name:</label>
+  <input
+    type="text"
+    name="last_name"
+    value="<%= profile?.last_name || '' %>"
+    required
+    maxlength="50"
+  /><br />
+
+  <label>Bio:</label><br />
+  <textarea name="bio" maxlength="500"><%= profile?.bio || '' %></textarea
+  ><br />
+
+  <button type="submit">Update Profile</button>
+</form>

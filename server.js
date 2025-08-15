@@ -9,21 +9,21 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
-// ✅ Parse form data first
+// Parse form data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// ✅ Cookie parser before JWT decode
+// Cookie parser
 app.use(cookieParser());
 
-// ✅ Decode JWT middleware
+// JWT decode middleware
 const { decodeJWT } = require("./routes/middleware/authMiddleware");
 app.use(decodeJWT);
 
-// ✅ Serve static files
+// Serve static files
 app.use(express.static("public"));
 
-// ✅ Session middleware
+// Session middleware
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "devSecret",
@@ -33,10 +33,10 @@ app.use(
   })
 );
 
-// ✅ Flash messages
+// Flash messages
 app.use(flash());
 
-// ✅ Navigation & flash locals
+// Navigation & flash locals
 const { getNav } = require("./utilities/index");
 app.use(async (req, res, next) => {
   res.locals.messages = req.flash();
@@ -44,27 +44,29 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// ✅ View engine setup
+// View engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.set("layout", "layout");
 app.use(expressLayouts);
 
-// ✅ Routes
+// Routes
 const accountRoutes = require("./routes/accountRoute");
 const staticRoutes = require("./routes/static");
 const invRoute = require("./routes/inventoryRoute");
+const profileRoutes = require("./routes/profileRoutes"); // ✅ fixed
 
 app.use("/account", accountRoutes);
 app.use("/inv", invRoute);
+app.use("/profile", profileRoutes);
 app.use("/", staticRoutes);
 
-// ✅ Home route
+// Home route
 app.get("/", (req, res) => {
   res.render("home", { title: "Home" });
 });
 
-// ✅ Global error handler
+// Global error handler
 app.use((err, req, res, next) => {
   console.error("🔥 Server Error:", err.stack);
   res.status(500).render("errors/500", {
@@ -73,7 +75,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ✅ Start server
+// Start server
 const port = process.env.PORT || 5501;
 const host = process.env.HOST || "localhost";
 

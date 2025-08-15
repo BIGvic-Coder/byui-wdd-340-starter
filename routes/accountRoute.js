@@ -9,13 +9,13 @@ const {
   decodeJWT,
   verifyJWT,
   requireAuth,
-} = require("./middleware/authMiddleware"); // ✅ corrected path
+} = require("./middleware/authMiddleware");
 
 const {
   validateAccountUpdate,
   validatePasswordUpdate,
   checkValidationResults,
-} = require("./middleware/accountValidation"); // ✅ corrected path
+} = require("./middleware/accountValidation");
 
 // Registration routes
 router.get("/register", accountController.buildRegister);
